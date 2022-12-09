@@ -1,0 +1,106 @@
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+
+{% block content %}
+ <div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Employee&nbsp;Details</u></strong></h3>
+                <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="container bcontent">
+       
+        <hr />
+
+         <button type="submit" class="btn btn-success" style="float: right;" > <a
+                                                        href="{% url 'register' %}"
+                                                        class="text-light">ADD EMPLOYEE</a></button>
+                                                        <br><br>
+
+
+                                                         
+                                                        
+         
+             {% for i in employee %}
+            <div class="card" style="width: 500px;">
+            <div class="row no-gutters">
+                <div class="col-sm-5">
+               
+                     {% comment %} <img src="{{i.image.url}}" id="output" class="card-img-top" alt="..."> {% endcomment %}
+                   
+                     
+                     <input type="file"  accept="image/*" name="profile_img" id="file"  onchange="loadFile(event)" style="display: none;">
+                       <img id="output" width="200"  height="250" src="{{i.profile_img.url}}"/>
+                </div>
+                <div class="col-sm-7">
+                    <div class="card-body">
+                        <h5 class="card-title">{{i.username}}</h5>
+                        <p class="card-text">Age: {{i.age}}</p>
+                        <p class="card-text">Address: {{i.address}}</p>
+
+                        {% if i.is_active %}
+
+                            <button type="submit" class="btn btn-success"  > <a
+                                                        href="{% url 'relieval_employee' i.id %}"
+                                                        class="text-light">Active</a></button>
+                                                        <br><br>
+
+                                {% else %}
+
+                             <button type="submit" class="btn btn-danger" style="float: right;" > <a
+                                                        href="{% url 'activating_employee' i.id %}"
+                                                        class="text-light">Relieved</a></button>
+                                                        <br><br>  
+
+
+                        {% endif  %}
+
+                        {% if i.is_active %}
+                          {% if i.group %}
+
+                           <button type="submit" class="btn btn-success" style="float: right;" > <a
+                                                        href="{% url 'remove_role' i.id %}"
+                                                        class="text-light">Remove role</a></button>
+                                                        <br><br> 
+
+                          {% else %}
+                       <button type="submit" class="btn btn-success" style="float: right;" > <a
+                                                        href="{% url 'role' i.id %}"
+                                                        class="text-light">Role-Assign</a></button>
+                                                        <br><br> 
+
+
+                                           
+                                             
+                                                        {% endif  %}
+                                                        {% endif  %}
+                       
+                </div>
+                </div>
+                    
+              </div>  
+              </div><br><br>
+                {% endfor %}
+                     
+           
+    </div>
+    </form>
+ <style>
+            table, th, td {
+              border:1px solid black;
+              border-collapse: collapse;
+            }
+            </style>
+{% endblock %}
+
+
+
+
+    <script>
+var loadFile = function(event) {
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>

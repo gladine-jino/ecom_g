@@ -1,0 +1,58 @@
+{% extends 'dashboard/base.html' %}
+
+
+
+{% block content %}
+
+   
+ <div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Add&nbsp;Product</u></strong></h3>
+
+<form method = "post" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ADD</button>
+
+        <table>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          {% comment %} <th>Status</th> {% endcomment %}
+
+          
+        </tr>
+        {% for i in y %} 
+        <tr>
+          <td>{{i.product}}</td>
+          <td>{{i.stock_quantity}}</td>
+
+          <td>{{i.unit_price}}</td>
+          {% comment %} <td> </td> {% endcomment %}
+
+          <td><a href="{% url 'view_product' i.id  %}">view</a> </td>
+          <td><a href="{% url 'edit_product' i.id  %}">edit</a> </td>
+          <td><a href="{% url 'delete_product' i.id  %}">delete</a>  </td>
+         
+   
+
+
+           </tr>       
+           {% endfor %}
+          </table>
+
+        
+    </form>
+ <style>
+            table, th, td {
+              border:1px solid black;
+              border-collapse: collapse;
+            }
+            </style>
+
+  </div>
+
+        </div>
+
+{% endblock %}

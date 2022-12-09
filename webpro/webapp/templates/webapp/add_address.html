@@ -1,0 +1,16 @@
+{% extends 'dashboard/base.html' %}
+
+
+
+{% block content %}
+
+   
+ <div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Address&nbsp;</u></strong></h3>
+<form method = "post" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ADD</button>
+</form>
+{% endblock %}

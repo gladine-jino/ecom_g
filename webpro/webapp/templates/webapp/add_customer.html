@@ -1,0 +1,44 @@
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+   
+    
+
+ <div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Add&nbsp;Customer</u></strong></h3>
+<form method = "post" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ADD</button>
+
+        <table>
+        <tr>
+          <th>Name</th>
+          <th>Phone number</th>
+          
+        </tr>
+        {% for i in y %} 
+        <tr>
+          <td>{{i.name}}</td>
+          <td>{{i.phone_number}}</td>  
+           </tr>       
+           {% endfor %}
+          </table>
+
+        
+    </form>
+    </div>
+
+        </div>
+
+ <style>
+            table, th, td {
+              border:1px solid black;
+              border-collapse: collapse;
+            }
+            </style>
+{% endblock %}

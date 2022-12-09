@@ -1,0 +1,51 @@
+
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+ <div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Saled&nbsp;Records</u></strong></h3>
+<form action="" method="POST">
+        {% csrf_token %}
+        From:<input type="date" name="start_date">
+        
+        To:<input type="date" name="end_date">
+        <input type="submit" value="Search"> <br><br>
+
+        <table>
+        <tr>
+          <th>Customer name</th>
+          <th>Product name</th>
+          <th>Purchased date</th>
+           <th>Price</th>
+            <th>Quantity</th>
+          
+
+          
+        </tr>
+        {% for i in saled_details %}  
+        <tr>
+      
+         <td>{{i.customer.name}}</td>
+         <td>{{i.product.product}}</td>
+          
+          <td>{{i.created_at}}</td>
+          
+
+          <td>{{i.amount_paid}}</td>
+          <td>{{i.sell_quantity}}</td>
+        
+           
+
+          
+           </tr>       
+            {% endfor  %}
+          </table>
+
+
+
+{% endblock %}

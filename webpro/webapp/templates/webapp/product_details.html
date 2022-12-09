@@ -1,0 +1,30 @@
+
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+ 
+
+
+
+
+
+{% block content %}
+
+<div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Product&nbsp;Details</u></strong></h3>
+
+         <p><b>Product name:</b> {{product.product}}</p>
+        
+          
+          <p><b>Product quantity: </b>{{product.stock_quantity}}</p>
+          <p><b>Product price:</b> {{product.unit_price}}</p>
+
+      </div>
+      </div>
+          {% endblock %}
+
+
+
+
+          

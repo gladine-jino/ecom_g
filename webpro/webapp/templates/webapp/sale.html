@@ -1,0 +1,171 @@
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+
+{% block content %}
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+ 
+<div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Sale&nbsp;</u></strong></h3>
+<form method = "post">
+        {% csrf_token %}    
+         {{ form.as_p }}  
+         <label for="count" class="col-form-label" >Available</label>
+
+           <input type="text" style="text-center" class="form-control" id="customer"> 
+         <label for="count" class="col-form-label" >Balance</label>
+                                    
+          <input type="text" style="text-center" class="form-control" id="count">   
+           <label for="count" class="col-form-label" >Unit price</label>
+                                    
+          <input type="text" style="text-center" class="form-control" id="unit">  
+
+         <br>
+
+       <input type="submit" value="submit">    
+   <br><br> 
+     <table>
+        <tr>
+          <th>Product</th>
+          <th>Available</th>
+          <th>Sell Quantity</th>
+
+          <th>Unit Price</th>
+             <th>Total amount</th>
+              <th>Amount paid</th>
+              <th>Balance</th>
+        
+        </tr>
+      <tr>
+          <td>{{product.product}}</td>
+
+       <td>{{product.stock_quantity}}</td>
+    
+            <td>{{x.sell_quantity}}</td>
+          <td>{{product.unit_price}}</td>
+          <td>{{x.total_amount}}</td>
+
+          <td>{{x.amount_paid}}</td>
+
+          <td>{{x.credit_balance}}</td>
+
+           </tr>       
+          
+          </table> 
+       
+ </form>  
+  </div> 
+   </div> 
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+ {% comment %} <button type="button" onclick="dummy()">  check function</button>  {% endcomment %}
+
+   <style>
+            table, th, td {
+              border:1px solid black;
+              border-collapse: collapse;
+            }
+            </style>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+ {% comment %} <button type="button" onclick="dummy()">  check function</button>  {% endcomment %}
+
+
+<script>
+
+$(document).ready(function(){
+    $('#id_total_amount,#id_amount_paid').keyup(function(){
+        var total=0;
+        var x=Number($("#id_total_amount").val());
+        var y=Number($("#id_amount_paid").val());
+        var total=x-y;
+
+        $('#id_credit_balance').val(total);
+
+    });
+});
+
+    // function dummy(){
+    //     alert(" my name is prakash")
+
+    //     document.getElementById('id_sell_quantity').value = 5;
+    // }
+</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>  
+<script>
+   $(document).ready(function() {
+    
+    $('#id_customer').change(function(){
+        data1 = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            
+            url: "{% url 'add_credit_balance' %}",
+            dataType: "json",
+            headers: {
+                "X-CSRFToken": $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            data: {
+                'consultingName':data1,
+            },
+            success: function (response) {
+               
+              $('#count').val(response.credit);
+           
+            },
+            error: function (response) {
+            alert('Error')
+            }
+            
+            });
+      
+
+});
+$('#id_product').change(function(){
+        data1 = $(this).val();
+      
+        $.ajax({
+            type: "POST",
+            
+            url: "{% url 'available_count' %}",
+            dataType: "json",
+            headers: {
+                "X-CSRFToken": $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            data: {
+                'consultingName':data1,
+              
+            },
+            success: function (response) {
+            $('#customer').val(response.count);
+            $('#unit').val(response.unit);
+              
+            },
+            error: function (response) {
+            alert('Error')
+            }
+            
+            });
+
+   });
+
+  });
+</script>
+  {% endblock %}   

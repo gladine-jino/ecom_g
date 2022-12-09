@@ -1,0 +1,68 @@
+{% extends 'dashboard/base.html' %}
+
+
+
+
+{% block content %}
+
+{% load static %}
+    <div class="container">
+        <div class="card reg__card p-md-5 p-3">
+            <h3 class="text-center"><strong><u> Assigning Role</u></strong></h3>
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                  
+                  <p><b>Username:</b> {{use.username}}</p>
+
+
+                 {% comment %} <div class="row mt-3">
+
+                    <div class="col-lg-6 mt-2">
+                        <div class="form-group">
+                            <label for=""> Select user: </label>
+                            <select name="user" >  
+                               
+                         {% for i in use %}
+                        
+                           <option value="{{i.id}}">{{i.username}}</option>
+                           
+                        
+                               
+                         {% endfor %} 
+                                </select>
+                            </div>       
+                        </div>
+                    </div>
+<br><br><br> {% endcomment %}
+                
+                <div class="row mt-3">
+
+                    <div class="col-lg-6 mt-2">
+                        <div class="form-group">
+                            <label for=""> Select role: </label>
+                            <select name="role" >  
+                               
+                        {% for i in group %}
+                        
+                           <option value="{{i.id}}">{{i.name}}</option>
+                           
+                         {% endfor %}  
+                               
+                         
+                                </select>
+
+                               
+                        </div><br><br> 
+                    
+                        <button type="submit" class="btn btn-outline-success mx-2">Submit</button>
+                    </div>
+
+ <style>
+            table, th, td {
+              border:1px solid black;
+              border-collapse: collapse;
+            }
+            </style>
+
+{% endblock content %}

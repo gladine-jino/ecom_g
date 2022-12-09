@@ -1,0 +1,138 @@
+
+
+
+
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+   
+    
+
+ <div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Search&nbsp;Customer</u></strong></h3>
+<form method = "post" >
+        {% csrf_token %}
+         <div class="form-group row">
+
+                            <div class="col-lg-4 text-lg-center text-md-left text-sm-left">
+                                <label for="colFormLabel" class="col-form-label" 
+                                    >Search</label>
+
+
+                            </div>
+                            <div class="col-lg-4">
+                             <select name="customer_name" class="form-control"  id="colFormLabel" placeholder="Customer name" >  
+                             <option value="" disabled selected value> -------</option>
+                               
+                          {% for i in search %} 
+                        
+                           <option value="{{i.id}}">{{i.name}}</option>
+                           
+                   
+                               
+                          {% endfor %}
+                                </select>
+                                {% comment %} <input type="text" class="form-control" id="colFormLabel" name="customer_name" placeholder="Customer Name" > {% endcomment %}
+                            </div>
+                            <div class="col-lg-2">
+                            <button type="submit" class="btn btn-outline-success">Search</button></div>
+                            <div class="col-lg-2">
+
+                            <button type="submit" class="btn btn-success"> <a
+                                                        href="{% url 'add_customer' %}"
+                                                        class="text-light">ADD NEW CUSTOMER</a></button></div>
+                                                
+                              <div class="col-lg-2">
+                            {% comment %} <input type="text" style="text-center" class="form-control" id="customer">  {% endcomment %}
+                            <br>
+                           </div>
+                             <br>
+                             </div>
+
+        <table>
+        <tr>
+          <th>Name</th>
+          <th>Phone number</th>
+           <th>Status</th>
+          
+        </tr>
+        {% for i in search %} 
+       
+      
+        <tr>
+          <td >{{i.name}}</td>
+          <td>{{i.phone_number}}</td>  
+         
+            
+          <td><button type="submit" class="btn btn-success"> <a
+                                                        href="{% url 'sale' %}"
+                                                        class="text-light">BUY</a></button></td> 
+           </tr>       
+           {% endfor %}
+           
+         
+          </table>
+
+        
+    </form>
+
+     </div>
+
+        </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>  
+<script>
+   $(document).ready(function() {
+    
+    
+    $('#colFormLabel').change(function(){
+        data1 = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            
+            url: "{% url 'add_credit_balance' %}",
+            dataType: "json",
+            headers: {
+                "X-CSRFToken": $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            data: {
+                'consultingName':data1,
+            },
+            success: function (response) {
+             
+                
+              $('#customer').val(response.credit);
+              $('#customer').html(response.credit);
+                
+                         
+                
+            },
+            error: function (response) {
+            alert('Error')
+            }
+            
+            });
+      
+
+       
+   
+});
+   
+});
+
+</script>
+            <style>
+            table, th, td {
+              border:1px solid black;
+              border-collapse: collapse;
+            }
+            </style>
+{% endblock %}
+
+
+
+

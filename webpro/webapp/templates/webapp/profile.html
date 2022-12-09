@@ -1,0 +1,26 @@
+{% extends 'dashboard/base.html' %}
+
+
+
+{% block content %}
+
+   
+ <div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Add&nbsp;Customer</u></strong></h3>
+<form method = "post" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group">
+                               
+                                <label for="first_name">Address&nbsp;</label>
+                                    <button type="submit" class="btn btn-success" style="float: right;" > <a
+                                                        href="{% url 'add_address' %}"
+                                                        class="text-light">ADD</a></button>
+                                                        <br><br>
+                               
+                            </div>
+
+        <button type="submit">ADD</button>
+</form>
+{% endblock %}

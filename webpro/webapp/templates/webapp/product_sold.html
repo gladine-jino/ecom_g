@@ -1,0 +1,50 @@
+ {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+ 
+ <form method = "post">
+        {% csrf_token %}  
+     <table>
+        <tr>
+          <th>Product</th>
+          <th>Available</th>
+          <th>Sell Quantity</th>
+
+          <th>Unit Price</th>
+             <th>Total amount</th>
+              <th>Amount paid</th>
+              <th>Balance</th>
+        
+        </tr>
+        
+       
+        <tr>
+          <td>{{product.product}}</td>
+
+       <td>{{product.stock_quantity}}</td>
+    
+            <td>{{x.sell_quantity}}</td>
+          <td>{{product.unit_price}}</td>
+          <td>{{x.total_amount}}</td>
+
+          <td>{{x.amount_paid}}</td>
+
+          <td>{{x.credit_balance}}</td>
+
+           </tr>       
+          
+          </table> 
+        
+
+        
+ </form> 
+
+    <style>
+            table, th, td {
+              border:1px solid black;
+              border-collapse: collapse;
+            }
+            </style>
+
+              {% endblock %}  

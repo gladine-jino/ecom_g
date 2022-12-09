@@ -1,0 +1,71 @@
+{% extends 'dashboard/log.html' %}
+
+{% load static %}
+
+{% block content %}
+
+ <div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>LOGIN&nbsp;</u></strong></h3>
+
+
+     <section class="vh-100">
+        <div class="container-fluid h-custom">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-3 col-lg-6 col-xl-4 offset-xl-1">
+          
+                            <form action="{% url 'login_view' %}" method="POST">
+                                {% csrf_token %}
+                                {% if messages %}  
+                                <ul>   
+                                {% for message in messages %}  
+                                <li style="color:green">{{ message }}</li>  
+                                {% endfor %}  
+                                </ul>   
+                                {% endif %}
+                                {% if form.non_field_errors %}
+                                <div class="non-field-errors">
+                                  {% for err in form.non_field_errors %}
+                                    <p class="form-error" style="color:red" >{{ err }}</p>
+                                  {% endfor %}
+                                </div>
+                                {% endif %}
+                                <div class="form-floating mb-3">
+                                     
+                                    <input type="text" class="form-control" name="username" id="floatingInput"
+                                        placeholder="Username">
+                                    <label for="floatingInput">Username*</label>
+                                </div>
+                            
+                                <span class="text-danger">{{form.username.errors}}</span>
+                                <div class="form-floating">
+                                    
+                                    <input type="password" class="form-control" name="password" id="floatingPassword"
+                                        placeholder="Password"><br>
+
+                                    <label for="floatingPassword">Password*</label>
+                                </div>
+                                <span class="text-danger">{{form.password.errors}}</span>
+                                <div class="btn_submit mt-md-5 my-5">
+                                    <button type="submit" class="btn
+                                        btn-outline-primary mx-3">Login</button> 
+                                        <button type="reset" class="btn
+                                        btn-outline-danger">Cancel</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div> 
+</div>
+                    </div>
+  </section>
+                   
+</div>
+                    </div>
+                
+
+                {% endblock %}             

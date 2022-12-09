@@ -1,0 +1,32 @@
+
+
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+ 
+
+
+
+{% block content %}
+
+
+ <div class="container">
+            <div class="card reg__card p-md-5 p-3">
+                <h3 class="text-center"><strong><u>Edit&nbsp;Product details</u></strong></h3>
+
+
+    <form  method="POST">
+        {% csrf_token %}
+        
+        {{  form.as_p  }}
+
+
+
+        <input type="submit" value="Submit">
+              </form> 
+              </div>
+
+        </div>
+
+
+{% endblock content %}
